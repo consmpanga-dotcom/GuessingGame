@@ -1,0 +1,70 @@
+<!-- GuessingGame.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guessing Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f0f0f0;
+    }
+    #game {
+      margin: 50px auto;
+      width: 300px;
+      padding: 20px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <div id="game">
+    <h2>Guess a number between 1 and 10</h2>
+    <input id="guess" type="number" placeholder="Enter your guess">
+    <button onclick="checkGuess()">Guess</button>
+    <p id="result"></p>
+    <p id="guesses"></p>
+    <button id="playAgain" style="display: none;" onclick="playAgain()">Play Again</button>
+  </div>
+
+  <script>
+    let randomNumber = Math.floor(Math.random() * 10) + 1;
+    let guesses = 0;
+
+    function checkGuess() {
+      let guess = parseInt(document.getElementById('guess').value);
+      guesses++;
+
+      if (guess > randomNumber) {
+        document.getElementById('result').innerText = 'Your guess is too high. Guess again.';
+      } else if (guess < randomNumber) {
+        document.getElementById('result').innerText = 'Your guess is too low. Guess again.';
+      } else if (guess === randomNumber) {
+        document.getElementById('result').innerText = `Your guess was correct! You made ${guesses} guesses.`;
+        document.getElementById('guess').disabled = true;
+        document.getElementById('playAgain').style.display = 'block';
+      } else {
+        document.getElementById('result').innerText = 'Invalid input. Guess again.';
+      }
+
+      document.getElementById('guesses').innerText = `Guesses: ${guesses}`;
+    }
+
+    function playAgain() {
+      randomNumber = Math.floor(Math.random() * 10) + 1;
+      guesses = 0;
+      document.getElementById('guess').value = '';
+      document.getElementById('guess').disabled = false;
+      document.getElementById('result').innerText = '';
+      document.getElementById('guesses').innerText = '';
+      document.getElementById('playAgain').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
